@@ -1,5 +1,5 @@
 1. Please enable compiler -std=c++11 first.
-2. And add all file (main.cpp, BigNumber.cpp, BigNumber.h, tool.cpp, tool.h) into a project.
+2. And add all file (main.cpp, BigNumber.cpp, BigNumber.h, tool.cpp, tool.h) into a project.\n
    Or just open BigNumber.dev with Dev-C++.
 3. Then compiler and run.
 
