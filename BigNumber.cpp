@@ -13,7 +13,8 @@ using namespace std;
  * 	There are four constructors
  * 		BigNumber() , BigNumber(unsigned int)
  * 		BigNumber(string) , BigNumber(bool,int,string)
- *
+ *	But in main function only use BigNumber(bool,int,string) constructor.
+ 	Then we have
  * 	BigNumber operators (+-*%/)
  * 	Print function to print the BigNumber value
  *
@@ -145,7 +146,7 @@ BigNumber BigNumber::operator *(BigNumber right) {
 			continue;
 		for (int j = s2_size; j > 0; --j) {
 			int n2 = hex2int(s2[j - 1]);
-			int sum = n1 * n2 + hex2int(result[i + j]) + carry; // sum need to add previous value in equal index and carry value
+			int sum = n1 * n2 + hex2int(result[i + j]) + carry; // sum need to add previous value which is in equal index and carry value
 			carry = sum / 16; // calculate the carry value
 			result[i + j] = hexValue[sum % 16]; // store the remain value in result
 		}
@@ -164,7 +165,7 @@ BigNumber BigNumber::operator /(BigNumber right) {
 	// if two BigNumber have different sign ==> sign will be true(-)
 	if (this->sign != right.sign)
 		sign = true;
-	string result;
+	string result; //store quotient
 	string s1 = this->data;
 	string s2 = right.data;
 	// divisor can't not be 0
@@ -177,25 +178,29 @@ BigNumber BigNumber::operator /(BigNumber right) {
 		return (BigNumber(sign, 1, "0"));
 	int s1_size = this->size;
 	int index = 0; // record which index is using now
-	string temp;
+	string temp; // use temp to store current divisor
 
-	// long division
+	// long division calculation
 	while (index < s1_size) {
 
 		temp += s1[index++];
-		// temp need bigger than s2, if not, then supplement 0 to result and add next index.
+		// temp need bigger than s2, if not, then supplement 0 to result and add next index value to temp.
 		while (!compare(temp, s2) && index < s1_size) {
 			result += hexValue[0];
 			temp += s1[index++];
 		}
-		// If last round temp equal to product (new temp is 0) , we need to remove the beginning 0 from temp.
+		// If last round temp equal to product (temp is start with 0 now), we need to remove the beginning 0 from temp.
 		while (temp.at(0) == '0')
 			temp.erase(0, 1);
 		int multiplier = 8; // I use 8 as first multiplier, because it is half of 16.
-		string product = multi(s2, multiplier); // And calculate s2*multiplier store in product.
+		string product = multi(s2, multiplier); // And calculate s2*multiplier store in product. 
+		
+		//We want to get a product value between temp and temp-s2.
+		//So we will do following calculation.
+		
 		// if temp>=product
 		if (compare(temp, product)) {
-			// it will add s2 to product until > temp.
+			// add s2 to product until > temp.
 			while (compare(temp, product)) {
 				product = add(product, s2);
 				++multiplier;
@@ -206,7 +211,7 @@ BigNumber BigNumber::operator /(BigNumber right) {
 		}
 		// if temp<product
 		else {
-			// it will subtract s2 from product until product <= temp
+			// subtract s2 from product until product <= temp
 			while (!compare(temp, product)) {
 				--multiplier;
 				product = sub(product, s2);

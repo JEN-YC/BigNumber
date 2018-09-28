@@ -6,6 +6,7 @@ using namespace std;
 
 string hexValue = "0123456789abcdef";
 
+//convert decimal to hex
 string int2hex(unsigned int dec) {
 	char output[1000];
 	sprintf(output, "%X", dec);
@@ -14,6 +15,7 @@ string int2hex(unsigned int dec) {
 	return after;
 }
 
+//Compare two string , if  s1>= s2 return true ,or s1<s2 return false.
 bool compare(string s1, string s2) {
 	// compare s1 and s2, longer one on the left side
 	if (s1.length() < s2.length()) {
@@ -36,6 +38,7 @@ bool compare(string s1, string s2) {
 	return true;
 }
 
+//Two string subtract, and return the result
 string sub(string s1, string s2) {
 	int s1_size = s1.length();
 	int s2_size = s2.length();
@@ -64,6 +67,7 @@ string sub(string s1, string s2) {
 	return result;
 }
 
+//Two string add, and return the result
 string add(string s1, string s2) {
 	string result;
 	bool iscarry = false;
@@ -100,6 +104,7 @@ string add(string s1, string s2) {
 	return result;
 }
 
+// string multiply a integer, and return the result
 string multi(string s1, int i) {
 	string s2;
 	s2 += hexValue[i];
@@ -125,6 +130,8 @@ string multi(string s1, int i) {
 		result.erase(0, 1);
 	return result;
 }
+
+//convert hex to decimal
 int hex2int(char c) {
 	switch (c) {
 	case '0':

@@ -9,7 +9,7 @@ int main() {
 	string s1, s2;
 	string hexValue = "0123456789abcdefABCDEF";
 	bool validate = false;
-	//We will validate user input here, check if the number is hexadecimal.
+	//Validate user input here, check if the number is hexadecimal.
 	while(!validate){
 		cout << "Pleas input two hexadecimal number (Don't start with 0x) " << endl;
 		cout << "First Number:" << endl;
@@ -24,6 +24,7 @@ int main() {
 		else
 			cout << "Your input is not hexadecimal, try again." << endl;
 	}
+	//Transform all character to lower case
 	transform(s1.begin(), s1.end(), s1.begin(), ::tolower);
 	transform(s2.begin(), s2.end(), s2.begin(), ::tolower);
 	cout << "a = " << s1 << endl;
